@@ -1,10 +1,10 @@
-package io.codeheroes.micro
+package io.codeheroes.microhero
 
 import akka.Done
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
-import io.codeheroes.micro.core.ConsulMock
-import io.codeheroes.micro.registration.consul.{Consul, EndpointStatus, HttpCheck}
+import io.codeheroes.microhero.core.ConsulMock
+import io.codeheroes.microhero.registration.consul.{Consul, EndpointStatus, HttpCheck}
 import org.scalatest.{FlatSpec, Matchers}
 
 import scala.concurrent.duration._

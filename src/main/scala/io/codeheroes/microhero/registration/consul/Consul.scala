@@ -1,4 +1,4 @@
-package io.codeheroes.micro.registration.consul
+package io.codeheroes.microhero.registration.consul
 
 import akka.actor.{ActorSystem, Cancellable}
 import akka.http.scaladsl.Http

@@ -1,4 +1,4 @@
-package io.codeheroes.micro.core
+package io.codeheroes.microhero.core
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
