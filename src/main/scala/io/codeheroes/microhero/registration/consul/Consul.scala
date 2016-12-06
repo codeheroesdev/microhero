@@ -29,7 +29,7 @@ class Consul(host: String, port: Int)(implicit system: ActorSystem) {
 
   def registerService(host: String, port: Int, name: String, healthCheck: Option[HealthCheck] = None): Future[Done] = {
     val check = healthCheck.map {
-      case HttpCheck(path, interval, ttl, deregister) => RequestCheck(deregister.map(toTime), Some(s"http://$host:$port$path"), toTime(interval), toTime(ttl))
+      case HttpCheck(path, interval, ttl, deregister) => RequestCheck(deregister.map(toTime), Some(s"http://$host:$port$path"), toTime(interval))
     }
     val entity = Request(s"$name@$host:$port", name, host, port, check)
     val request = HttpRequest(method = HttpMethods.PUT,
@@ -82,7 +82,7 @@ object Consul {
 
   private case class Request(ID: String, Name: String, Address: String, Port: Int, Check: Option[RequestCheck])
 
-  private case class RequestCheck(DeregisterCriticalServiceAfter: Option[String], HTTP: Option[String], Interval: String, TTL: String)
+  private case class RequestCheck(DeregisterCriticalServiceAfter: Option[String], HTTP: Option[String], Interval: String)
 
   private case class Service(Address: String, Port: Int)
 
