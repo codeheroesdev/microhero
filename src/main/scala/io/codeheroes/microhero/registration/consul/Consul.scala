@@ -14,7 +14,7 @@ import scala.concurrent.duration._
 
 sealed trait HealthCheck
 
-case class HttpCheck(path: String, interval: FiniteDuration, ttl: FiniteDuration, deregisterAfter: Option[FiniteDuration]) extends HealthCheck
+case class HttpCheck(path: String, interval: FiniteDuration, deregisterAfter: Option[FiniteDuration]) extends HealthCheck
 
 case class EndpointStatus(host: String, port: Int, healthy: Boolean)
 
@@ -29,7 +29,7 @@ class Consul(host: String, port: Int)(implicit system: ActorSystem) {
 
   def registerService(host: String, port: Int, name: String, healthCheck: Option[HealthCheck] = None): Future[Done] = {
     val check = healthCheck.map {
-      case HttpCheck(path, interval, ttl, deregister) => RequestCheck(deregister.map(toTime), Some(s"http://$host:$port$path"), toTime(interval))
+      case HttpCheck(path, interval, deregister) => RequestCheck(deregister.map(toTime), Some(s"http://$host:$port$path"), toTime(interval))
     }
     val entity = Request(s"$name@$host:$port", name, host, port, check)
     val request = HttpRequest(method = HttpMethods.PUT,

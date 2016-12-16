@@ -24,7 +24,7 @@ class ConsulTests extends FlatSpec with Matchers {
     mock.clearRequests()
     val consul = new Consul(mockHost, mockPort)
 
-    val result = await(consul.registerService("192.168.1.1", 9092, "kafka", Some(HttpCheck("/status", 30 seconds, 15 seconds, Some(90 seconds)))))
+    val result = await(consul.registerService("192.168.1.1", 9092, "kafka", Some(HttpCheck("/status", 30 seconds, Some(90 seconds)))))
     val requests = mock.requests()
 
     result shouldBe Success(Done)
@@ -35,8 +35,8 @@ class ConsulTests extends FlatSpec with Matchers {
     requests.head.Name shouldBe "kafka"
     requests.head.Check.map(_.HTTP) shouldBe Some("http://192.168.1.1:9092/status")
     requests.head.Check.map(_.Interval) shouldBe Some("30s")
-    requests.head.Check.map(_.TTL) shouldBe Some("15s")
     requests.head.Check.flatMap(_.DeregisterCriticalServiceAfter) shouldBe Some("90s")
+    println(requests)
   }
 
   it should "fail if host is not reachable" in {

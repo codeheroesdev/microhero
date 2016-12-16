@@ -16,7 +16,8 @@ import scala.concurrent.duration._
 case object ConsulMock {
 
   case class Request(ID: String, Name: String, Address: String, Port: Int, Check: Option[RequestCheck])
-  case class RequestCheck(DeregisterCriticalServiceAfter: Option[String], HTTP: String, Interval: String, TTL: String)
+
+  case class RequestCheck(DeregisterCriticalServiceAfter: Option[String], HTTP: String, Interval: String)
   case class Service(Address: String, Port: Int)
   case class ResponseCheck(Status: String)
   case class Response(Service: Service, Checks: List[ResponseCheck])
