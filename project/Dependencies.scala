@@ -10,7 +10,7 @@ object Dependencies {
   )
 
   val testDependencies = Seq(
-    "org.scalatest" %% "scalatest" % "2.2.6" % "test",
+    "org.scalatest" %% "scalatest" % "3.0.1" % "test",
     "com.typesafe.akka" %% "akka-http" % akkaHttpVersion % "test"
   )
 
