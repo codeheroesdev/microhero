@@ -64,7 +64,8 @@ class Consul(host: String, port: Int)(implicit system: ActorSystem) {
         case (StatusCodes.NotFound, _) =>
           List.empty
         case (other, _) =>
-          throw new IllegalStateException(s"Loading services for $name failed with response status $other")
+          system.log.error(s"Loading services for $name failed with response status $other")
+          List.empty
       }
   }
 
